@@ -15,14 +15,17 @@ cVal = {('a', 'b'): 8, ('a', 'e'): 3, ('a', 'f'): 1, ('b', 'c'): 2,
 
 def printPath(v):
     arr = []
+    tmp=v
     path = ''
-    while (p[v] != SOURCE):
-        arr.insert(0, p[v])
-        v = p[v];
+    while (p[tmp] != SOURCE):
+        arr.insert(0, p[tmp])
+        tmp = p[tmp];
     arr.insert(0, SOURCE)
+    # print(arr)
     for i in arr:
         path += i + '-'
-    return (path[:-1])
+    path+=v
+    return (path)
 
 def c(u, v):
     if (u, v) in cVal:
@@ -50,11 +53,9 @@ for SOURCE in V:
     nTag = [SOURCE]
 
     # init#
-
     '''init the first p(v) with the neighbor of the source vertex'''
     for v in findNeighbor(SOURCE):
         p[v]=SOURCE
-
     '''init the distance between the source and his neigbhors'''
     for v in V:
         if (SOURCE, v) in E:        # if v is neighbor of source
@@ -82,10 +83,10 @@ for SOURCE in V:
                     p[v] = w
                     D[v] = D[w] + c(w, v)
                 else:
-                    p[v]=p[w]
+                    p[v]=p[v]
             ''' new cost to v is either old cost to v or known
                 least path cost to w plus cost from w to v '''
-
+        # print (p)
     for v in V:
         path=""
         if v != SOURCE:
